@@ -34,8 +34,8 @@ const Model = {
 const MainView = {
     view: (vnode)=>{
        return  m("div",[
-        m("p", {class:`f6 fw7 ${Model.flashColor}`}, Model.flash),
-        m("p", `Rank these recommendations in order of importance. (Sorry, no ties allowed.) To rank them, drag recommendations from the "Report" section into the "My ranking" section. When you're done, hit "Submit".` ),
+        m("p", {class:'pl2'},`Rank these recommendations in order of importance. (Sorry, no ties allowed.) To rank them, drag recommendations from the "Report" section into the "My ranking" section. When you're done, hit "Submit".` ),
+        m("p", {class:`pl2 f6 fw7 ${Model.flashColor}`}, Model.flash),
         m(submitButton),
        m("div",{class:"flex flex-wrap"},[
            m("div",{
@@ -48,7 +48,7 @@ const MainView = {
            m("div",{
             class:"w-100 w-50-l mh0"
         }, [
-         m("p", {class:"tl pl4 f3 f2-m f1-l  fw7"},"Report recommendations"),
+         m("p", {class:"tl pl2 pl4-ns f3 f2-m f1-l  fw7"},"Report recommendations"),
          m(listView, {section: vnode.attrs.section})
 
         ]),
@@ -120,7 +120,7 @@ const itemView = {
 
 const submitButton = {
     view:(vnode)=>{
-        return m("div",{},[
+        return m("div",{class:"pl2"},[
             m("input", {oninput:(e)=>{Model.name=e.target.value; Model.flash=""}, value:Model.name, class:"ml1 mr3 input-reset bn pa3 Inter fw7 br2 bg-lightest-blue", type:"text", placeholder:"Name"}),
             m("a", {class:"br2 bg-lightest-blue hover-bg-light-red pa3 black fw7 pointer Inter",onclick: ()=>{
                 if(Model.finalOrder.length === Recommendations.length){
