@@ -15,10 +15,7 @@ const Layout = {
 
                   ]
                 ),
-              m("a", {"class":"pointer dtc v-mid silver z-99 link hover-black tr mb2 mb0-l","id":"menuburger","onclick":()=>{Menu.showMenu=true},"title":"Menu"}, 
-                  m("span", {class:"spartan f3-ns f4 ttu"}, "Menu"),
-                  
-              )
+           
               ]
             ), 
             m("article", {"class":"pa3 pa5-ns pt3-ns pt0 mw10 center spvar fw4 near-black vh-100"},
