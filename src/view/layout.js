@@ -18,7 +18,7 @@ const Layout = {
            
               ]
             ), 
-            m("article", {"class":"pa3 pa5-ns pt3-ns pt0 mw10 center spvar fw4 near-black vh-100"},
+            m("article", {"class":"ph1 pv3 pa5-ns pt3-ns pt0 mw10 center spvar fw4 near-black vh-100"},
               [
       
                 m("h1", {"class":"mt6-ns mt5 mb0 f2 spartan f-subheadline-ns fw7", "style":`color:${vnode.attrs.color || "black"}`},

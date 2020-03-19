@@ -83,7 +83,7 @@ const listView = {
 
 const itemView = {
     view: (vnode)=>{
-        return m("div", {class:"part1-item ba w-100 b--silver mh2 black f5 fw5 ph3 pv2 br0", "data-id":vnode.attrs.index}, vnode.attrs.rec)
+        return m("div", {class:"part1-item ba w-100 b--silver mh2 black f5-ns n6 fw5 ph3 pv2 br0", "data-id":vnode.attrs.index}, vnode.attrs.rec)
     }
 }
 
