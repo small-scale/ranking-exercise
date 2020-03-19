@@ -13,14 +13,14 @@ const MainView = {
            m("div",{
                class:"w-100 w-50-l mh0"
            }, [
-            m("p", {class:"tl f3 f2-m f1-l  fw7"},"My ranking (most to least important)"),
+            m("p", {class:"tl pl2 f3 f2-m f1-l  fw7"},"My ranking (most to least important)"),
             m(finalRankingView, {section: vnode.attrs.section})
            ]),
 
            m("div",{
             class:"w-100 w-50-l mh0"
         }, [
-         m("p", {class:"tl ml4 f3 f2-m f1-l  fw7"},"Report recommendations"),
+         m("p", {class:"tl pl4 f3 f2-m f1-l  fw7"},"Report recommendations"),
          m(listView, {section: vnode.attrs.section})
 
         ]),
@@ -83,7 +83,7 @@ const listView = {
 
 const itemView = {
     view: (vnode)=>{
-        return m("div", {class:"part1-item ba w-100 b--silver mh2 black f5-ns n6 fw5 ph3 pv2 br0", "data-id":vnode.attrs.index}, vnode.attrs.rec)
+        return m("div", {class:"part1-item ba w-100 b--silver mh1 black f5-ns f6 fw5 ph3 pv2 br0", "data-id":vnode.attrs.index}, vnode.attrs.rec)
     }
 }
 
