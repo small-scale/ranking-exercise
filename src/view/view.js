@@ -19,7 +19,7 @@ const Model = {
             body: {
                 name: Model.name,
                 order: Model.finalOrder,
-                part: section
+                part: parseInt(section)
             }
 
         }).then((response)=>{
