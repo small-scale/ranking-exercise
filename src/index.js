@@ -8,10 +8,7 @@ import {ReportView} from "./view/report"
    
        
         "/":{
-            onmatch: ()=>{
-                window.scrollTo(0,0);
-            },
-            render: ()=>{
+            view: ()=>{
                 return m(Layout, {title: "",
                 step: null,
                 nextLink: null,
@@ -23,10 +20,7 @@ import {ReportView} from "./view/report"
             }
         }, 
         "/part2":{
-            onmatch: ()=>{
-                window.scrollTo(0,0);
-            },
-            render: ()=>{
+           view: ()=>{
                 return m(Layout, {title: "",
                 step: null,
                 nextLink: null,
@@ -38,10 +32,7 @@ import {ReportView} from "./view/report"
             }
         }, 
         "/results":{
-            onmatch: ()=>{
-                window.scrollTo(0,0);
-            },
-            render: ()=>{
+            view: ()=>{
                 return m(Layout, {title: "",
                 step: null,
                 nextLink: null,
