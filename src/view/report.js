@@ -57,7 +57,7 @@ const ReportView = {
 const TableView = {
     view:(vnode)=>{
         console.log(vnode.attrs.ranks)
-        return m("table", {class:"f6 w-100 mw8 center mb4", cellspacing:0},[
+        return m("table", {class:"f6 w-100 mw8 center mb5", cellspacing:0},[
             m(TableHeaderView),
             sortBy(prop("mean"),vnode.attrs.ranks).map((row)=>{
                 return m(TableRowView, {row: row})
