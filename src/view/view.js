@@ -9,7 +9,7 @@ const Model = {
     flashColor:"",
     flash:"",
     name:"",
-    submit: (order)=>{
+    submit: (section)=>{
         Model.flashColor = "blue"
         Model.flash="Submitting..."
         m.request({
@@ -19,7 +19,7 @@ const Model = {
             body: {
                 name: Model.name,
                 order: Model.finalOrder,
-                part: 1
+                part: section
             }
 
         }).then((response)=>{
@@ -34,9 +34,9 @@ const Model = {
 const MainView = {
     view: (vnode)=>{
        return  m("div",[
-        m("p", {class:'pl2'},`Rank these recommendations in order of importance. (Sorry, no ties allowed.) To rank them, drag recommendations from the "Report" section into the "My ranking" section. When you're done, hit "Submit".` ),
+        m("p", {class:'pl2'},`Rank these recommendations from Part ${vnode.attrs.section} in order of importance, from most to least. (Sorry, no ties allowed.) To rank them, drag recommendations from the "Report" section into the "My ranking" section. When you're done, hit "Submit".` ),
         m("p", {class:`pl2 f6 fw7 ${Model.flashColor}`}, Model.flash),
-        m(submitButton),
+        m(submitButton, {section: vnode.attrs.section}),
        m("div",{class:"flex flex-wrap"},[
            m("div",{
                class:"w-100 w-50-l mh0"
@@ -103,9 +103,9 @@ const listView = {
         Model.originaList = Sortable.create(vnode.dom, {group:vnode.attrs.section, animation: 150, sort:false})
     },
     view:(vnode)=>{
-        return m("div", {class: "flex flex-wrap br3 pa3 mh1 mh4-l", style:"background-color:hsl(27,100%,70%)"}, [
-            Recommendations.map((item, index)=>{
-                return m(itemView, {rec: item, key: index, index: index})
+        return m("div", {class: `flex flex-wrap br3 pa3 mh1 mh4-l part${vnode.attrs.section}-list`,}, [
+            Recommendations[vnode.attrs.section].map((item, index)=>{
+                return m(itemView, {rec: item, key: index, index: index, section:vnode.attrs.section})
             })
         ])
     }
@@ -114,7 +114,7 @@ const listView = {
 
 const itemView = {
     view: (vnode)=>{
-        return m("div", {class:"part1-item ba w-100 b--silver mh1 black f5-ns f6 fw5 ph3 pv2 br0", "data-id":vnode.attrs.index}, vnode.attrs.rec)
+        return m("div", {class:`part${vnode.attrs.section}-item ba w-100 b--silver mh1 black f5-ns f6 fw5 ph3 pv2 br0`, "data-id":vnode.attrs.index}, vnode.attrs.rec)
     }
 }
 
@@ -123,9 +123,9 @@ const submitButton = {
         return m("div",{class:"pl2"},[
             m("input", {oninput:(e)=>{Model.name=e.target.value; Model.flash=""}, value:Model.name, class:"ml1 mr3 input-reset bn pa3 Inter fw7 br2 bg-lightest-blue", type:"text", placeholder:"Name"}),
             m("a", {class:"br2 bg-lightest-blue hover-bg-light-red pa3 black fw7 pointer Inter",onclick: ()=>{
-                if(Model.finalOrder.length === Recommendations.length){
+                if(Model.finalOrder.length === Recommendations[vnode.attrs.section].length){
                     if(Model.name != ""){
-                        Model.submit(Model.finalOrder)
+                        Model.submit(vnode.attrs.section)
                     }
                     else{
                         Model.flashColor = "dark-red"
