@@ -1,7 +1,8 @@
 import m from "mithril"
 import {Recommendations} from "./recommendations"
-import { indexOf, mean, sort, sortBy, prop, last, head, isEmpty } from "ramda"
+import { indexOf, mean, sort, sortBy, prop, last, head, isEmpty, union, length } from "ramda"
 const Model = {
+    names: [[],[]],
     resultsByRow: [],
     process:(values)=>{
         Model.results = values
@@ -17,11 +18,17 @@ const Model = {
             
                 //average rank
                 const justRanks=ranks.map((rank)=>{return rank.rank})
+                console.log(length(justRanks))
+                const sortedNames = sortedRanks.map((rank)=>{return rank.name})
+                Model.names[part-1] = sortedNames
+                console.log(length(sortedNames))
+
                 const sortedJustRanks=sort((a,b)=>{return a-b}, justRanks)
                 const averageRank = mean(justRanks)
                 const variance = last(sortedJustRanks)-head(sortedJustRanks)
                 //variancy
                 return {
+                    
                     rec: rec,
                     rank: sortedRanks,
                     mean: averageRank,
@@ -47,8 +54,8 @@ const ReportView = {
     view:(vnode)=>{
         console.log(Model.resultsByRow)
         return isEmpty(Model.resultsByRow) ? null :  m("div",[
-            m(TableView, {ranks: Model.resultsByRow[0]}),
-            m(TableView, {ranks: Model.resultsByRow[1]}),
+            m(TableView, {ranks: Model.resultsByRow[0], part:1}),
+            m(TableView, {ranks: Model.resultsByRow[1], part:2}),
  
          ])
     }
@@ -58,7 +65,7 @@ const TableView = {
     view:(vnode)=>{
         console.log(vnode.attrs.ranks)
         return m("table", {class:"f6 w-100 mw8 center mb5", cellspacing:0},[
-            m(TableHeaderView),
+            m(TableHeaderView, {part: vnode.attrs.part}),
             sortBy(prop("mean"),vnode.attrs.ranks).map((row)=>{
                 return m(TableRowView, {row: row})
             })
@@ -73,7 +80,9 @@ const TableHeaderView = {
                 m("th", {class:`${headerClass}`}, "Recommendation"),
                 m("th", {class:`${headerClass} tc`}, "Average rank"),
                 m("th", {class:`${headerClass} tc`}, "Variance"),
-                m("th", {class:`${headerClass} tc`}, "Raw ranks")
+                Model.names[vnode.attrs.part-1].map((name)=>{
+                    return  m("th", {class:`${headerClass} tc`}, name)
+                })
             ])
         ])
     }
